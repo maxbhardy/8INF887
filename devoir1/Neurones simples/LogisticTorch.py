@@ -6,6 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 import numpy as np
 
+
 class LogisticRegression(nn.Module):
     def __init__(self, input_dim):
         super(LogisticRegression, self).__init__()
@@ -13,7 +14,6 @@ class LogisticRegression(nn.Module):
 
     def forward(self, x):
         return torch.sigmoid(self.linear(x))
-
 
 
 # Charger et préparer les données Iris
@@ -30,7 +30,9 @@ y = y[binary_filter]
 y = y.astype(np.float32).reshape(-1, 1)
 
 # Diviser en ensembles d'entraînement et de test
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
 
 # Normaliser les données (centrer et réduire)
 scaler = StandardScaler()
@@ -64,7 +66,7 @@ for epoch in range(num_epochs):
 
     # Affichage périodique de la perte
     if (epoch + 1) % 10 == 0:
-        print(f'Epoch [{epoch + 1}/{num_epochs}], Loss: {loss.item():.4f}')
+        print(f"Epoch [{epoch + 1}/{num_epochs}], Loss: {loss.item():.4f}")
 
 # Tester le modèle
 with torch.no_grad():

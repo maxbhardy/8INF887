@@ -5,16 +5,19 @@ from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
 
 print(torch.cuda.is_available())
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-transform = transforms.Compose([
-    transforms.ToTensor(),
-    transforms.Normalize((0.5,), (0.5,))
-])
+transform = transforms.Compose(
+    [transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,))]
+)
 
 # Charger l'ensemble d'entraînement et de test
-train_dataset = datasets.MNIST(root='./data', train=True, transform=transform, download=True)
-test_dataset = datasets.MNIST(root='./data', train=False, transform=transform, download=True)
+train_dataset = datasets.MNIST(
+    root="./data", train=True, transform=transform, download=True
+)
+test_dataset = datasets.MNIST(
+    root="./data", train=False, transform=transform, download=True
+)
 
 train_loader = DataLoader(dataset=train_dataset, batch_size=64, shuffle=True)
 test_loader = DataLoader(dataset=test_dataset, batch_size=64, shuffle=False)
@@ -35,7 +38,7 @@ class MLP(nn.Module):
         return x
 
 
-model = MLP(input_size=28*28, hidden_size=128, num_classes=10).to(device)
+model = MLP(input_size=28 * 28, hidden_size=128, num_classes=10).to(device)
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 

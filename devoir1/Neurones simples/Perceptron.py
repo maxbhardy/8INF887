@@ -1,5 +1,6 @@
 import numpy as np
 
+
 class Perceptron(object):
     """Perceptron classifier.
 
@@ -18,6 +19,7 @@ class Perceptron(object):
         Number of misclassifications (updates) in each epoch.
 
     """
+
     def __init__(self, eta=0.01, n_iter=10):
         self.eta = eta
         self.n_iter = n_iter
@@ -41,17 +43,42 @@ class Perceptron(object):
         self.w_ = np.zeros(1 + X.shape[1])
         self.errors_ = []
 
-        #print("Poids:", self.w_)
+        # print("Poids:", self.w_)
 
         for _ in range(self.n_iter):
             errors = 0
             for xi, target in zip(X, y):
                 print("Modèle actuel: ", self.w_)
-                print("Fleur: ",xi," Type: ",np.where(target == 1, "Iris-setosa", "Autre"))
+                print(
+                    "Fleur: ",
+                    xi,
+                    " Type: ",
+                    np.where(target == 1, "Iris-setosa", "Autre"),
+                )
                 update = self.eta * (target - self.predict(xi))
-                print("Z=", self.w_[0], "*1+", self.w_[1:], "*", xi, " = ", np.dot(xi, self.w_[1:]) + self.w_[0])
-                print("Update = ", self.eta, " * (",target," - ", self.predict(xi), ") = ", update)
-                print("Poids MàJ: ", self.w_[1:], " + ", xi, " * ", update, " = ", end = ' ')
+                print(
+                    "Z=",
+                    self.w_[0],
+                    "*1+",
+                    self.w_[1:],
+                    "*",
+                    xi,
+                    " = ",
+                    np.dot(xi, self.w_[1:]) + self.w_[0],
+                )
+                print(
+                    "Update = ",
+                    self.eta,
+                    " * (",
+                    target,
+                    " - ",
+                    self.predict(xi),
+                    ") = ",
+                    update,
+                )
+                print(
+                    "Poids MàJ: ", self.w_[1:], " + ", xi, " * ", update, " = ", end=" "
+                )
                 self.w_[1:] += update * xi
                 print(self.w_[1:])
 
@@ -68,5 +95,3 @@ class Perceptron(object):
     def predict(self, X):
         """Return class label after unit step"""
         return np.where(self.net_input(X) >= 0.0, 1, -1)
-
-

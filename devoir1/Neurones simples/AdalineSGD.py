@@ -2,7 +2,6 @@ import numpy as np
 from numpy.random import seed
 
 
-
 class AdalineSGD(object):
     """ADAptive LInear NEuron classifier.
 
@@ -36,7 +35,7 @@ class AdalineSGD(object):
             seed(random_state)
 
     def fit(self, X, y):
-        """ Fit training data.
+        """Fit training data.
 
         Parameters
         ----------
@@ -59,8 +58,8 @@ class AdalineSGD(object):
             cost = []
             for xi, target in zip(X, y):
                 cost.append(self._update_weights(xi, target))
-            #avg_cost = sum(cost) / len(y)
-            #cost = (errors ** 2).sum() / 2.0
+            # avg_cost = sum(cost) / len(y)
+            # cost = (errors ** 2).sum() / 2.0
 
             err = sum(cost)
             self.cost_.append(err)
@@ -90,10 +89,10 @@ class AdalineSGD(object):
     def _update_weights(self, xi, target):
         """Apply Adaline learning rule to update the weights"""
         output = self.net_input(xi)
-        error = (target - output)
+        error = target - output
         self.w_[1:] += self.eta * xi.dot(error)
         self.w_[0] += self.eta * error
-        cost = 0.5 * error ** 2
+        cost = 0.5 * error**2
         return cost
 
     def net_input(self, X):

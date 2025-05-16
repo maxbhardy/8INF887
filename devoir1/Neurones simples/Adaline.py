@@ -1,5 +1,6 @@
 import numpy as np
 
+
 class AdalineGD(object):
     """ADAptive LInear NEuron classifier.
 
@@ -18,12 +19,13 @@ class AdalineGD(object):
         Sum-of-squares cost function value in each epoch.
 
     """
+
     def __init__(self, eta=0.01, n_iter=50):
         self.eta = eta
         self.n_iter = n_iter
 
     def fit(self, X, y):
-        """ Fit training data.
+        """Fit training data.
 
         Parameters
         ----------
@@ -49,9 +51,9 @@ class AdalineGD(object):
             # in the case of logistic regression, we could change it to
             # a sigmoid function to implement a logistic regression classifier.
             output = self.activation(X)
-            errors = (y - output)
+            errors = y - output
             self.w_[1:] += self.eta * X.T.dot(errors)
-            X.T*errors
+            X.T * errors
             self.w_[0] += self.eta * errors.sum()
             cost = (errors**2).sum() / 2.0
             self.cost_.append(cost)
